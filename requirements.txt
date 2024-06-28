@@ -1,0 +1,5 @@
+ipython
+opencv-python-headless
+openai
+requests
+tk
