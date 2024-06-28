@@ -1,0 +1,25 @@
+# Ignorar la carpeta dist
+dist/
+
+# Ignorar la carpeta build
+build/
+
+# Ignorar la carpeta PyInstaller
+__pyinstaller/
+
+# Ignorar archivos de configuración generados por PyInstaller
+*.spec
+
+# Ignorar archivos de caché de Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Ignorar archivos de logs y de depuración
+*.log
+*.trace
+
+# Ignorar otros archivos temporales
+*.tmp
+*.temp
