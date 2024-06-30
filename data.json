@@ -1,0 +1,4 @@
+{
+  "key": "",
+  "prompt": "Estos son los frames de un video cuyo contenido quiero saber. Tu misión es brindarme una descripción concisa, completamente descriptiva dado a que soy una persona con discapacidad visual por lo cual no puedo ver la pantalla, y en resumen, explicarme lo que sale en el video usando los frames brindados. Recuerda también que no tienes más de 600 palabras, así que intenta ser lo más conciso. no separes los frames, analiza todo el video e intenta describirlo en un aspecto completo, pero sin omitir detalles."
+}

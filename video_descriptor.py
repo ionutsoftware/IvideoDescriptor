@@ -2,7 +2,7 @@ from IPython.display import display, Image, Audio
 import cv2
 import base64
 import time
-from openai import OpenAI
+from openai import OpenAI, OpenAIError
 import json
 import requests
 from tkinter import Tk
@@ -11,14 +11,16 @@ from tkinter import messagebox
 import os
 
 # Cargar clave API desde el archivo key.json
-with open('key.json', 'r') as key_file:
-    key_data = json.load(key_file)
-    api_key = key_data['key']
+with open('data.json', 'r') as data_file:
+    app_data = json.load(data_file)
+    api_key=app_data['key']
+    prompt=app_data['prompt']
 
 client = OpenAI(api_key=api_key)
 
-def get_description(video_name, prompt="Estos son los frames de un video cuyo contenido quiero saber. Tu misión es brindarme una descripción concisa, completamente descriptiva dado a que soy una persona con discapacidad visual por lo cual no puedo ver la pantalla, y en resumen, explicarme lo que sale en el video usando los frames brindados. Recuerda también que no tienes más de 600 palabras, así que intenta ser lo más conciso. no separes los frames, analiza todo el video e intenta describirlo en un aspecto completo, pero sin omitir detalles."):
-    if os.path.exists(video_name):
+def get_description(video_name, prompt=prompt):
+    duration=get_video_length(video_name)
+    if os.path.exists(video_name) and duration<=30:
         video = cv2.VideoCapture(video_name)
         base64Frames = []
         while video.isOpened():
@@ -51,10 +53,23 @@ def get_description(video_name, prompt="Estos son los frames de un video cuyo co
             result = client.chat.completions.create(**params)
             description = result.choices[0].message.content
             return description
-
-        except Exception as e:
+        except OpenAIError as e:
             return str(e)
-
+    else:
+        messagebox.showwarning("error", "el video no existe, o tiene más de 30 segundos de duración")
+        return None
+def get_video_length(video_path):
+    video = cv2.VideoCapture(video_path)
+    if not video.isOpened():
+        return 0
+    total_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
+    fps = video.get(cv2.CAP_PROP_FPS)
+    if fps > 0:
+        duration = total_frames / fps
+    else:
+        duration = 0
+    video.release()
+    return duration
 def main():
     root = Tk()
     root.withdraw()  # Oculta la ventana principal de Tkinter
