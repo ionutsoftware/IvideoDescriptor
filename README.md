@@ -48,7 +48,7 @@ Este programa está diseñado para analizar videos y generar una descripción de
 - Este programa está diseñado para ser fácil de usar, incluso para aquellos que no tienen conocimientos técnicos.
 - Si tienes alguna duda o encuentras algún problema, no dudes en contactar al desarrollador.
 
-##Cambios:
+## Cambios:
 
 - Versión 1.0.1.30.6:
   - se limitan los videos a 30 segundos de duración para poder ser procesados por la ia, por una razón de límites. cuando intenté describir un video musical de 2 minutos, lanzó un error de exceso de tokens, por lo cual lo mejor es describir videos cortos.
